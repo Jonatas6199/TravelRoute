@@ -18,7 +18,7 @@ namespace TravelRoute.Controllers
         {
             _travelRouteService =  travelRouteService;
         }
-
+        //TODO: VALIDATIONS ARROUND THE WHOLE API, ASSYNCHRONOUS CALL AND ALGORITHM IMPLEMENTATION TO SET CHEAPEST ROUTE
         [HttpGet("TravelRoutes")]
         public IActionResult TravelRoutes()
         {
@@ -46,7 +46,7 @@ namespace TravelRoute.Controllers
             }
         }
 
-        [HttpPost("TravelRoute")]
+        [HttpPost("AddTravelRoute")]
         public IActionResult TravelRoute(Route route)
         {
             try
@@ -58,6 +58,39 @@ namespace TravelRoute.Controllers
                     return BadRequest();
             }
             catch( Exception ex)
+            {
+                return Problem(ex.ToString());
+            }
+        }
+
+        [HttpPost("TravelRouteUpdate")]
+        public IActionResult TravelRouteUpdate(Route route)
+        {
+            try
+            {
+                bool result = _travelRouteService.UpdateTravelRoute(route);
+                if (result)
+                    return Ok();
+                else
+                    return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.ToString());
+            }
+        }
+        [HttpDelete("DeleteTravelRoute")]
+        public IActionResult DeleteTravelRoute(int routeId)
+        {
+            try
+            {
+                bool result = _travelRouteService.DeleteTravelRoute(routeId);
+                if (result)
+                    return Ok();
+                else
+                    return BadRequest();
+            }
+            catch (Exception ex)
             {
                 return Problem(ex.ToString());
             }

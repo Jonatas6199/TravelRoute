@@ -25,6 +25,7 @@ namespace TravelRouteService.Services
             try
             {
                 _travelRouteRepository.AddTravelRoute(travelRoute);
+                _travelRouteRepository.Save();
                 return true;
             }
             catch (Exception)
@@ -38,6 +39,7 @@ namespace TravelRouteService.Services
             try
             {
                 _travelRouteRepository.DeleteRoute(travelRouteId);
+                _travelRouteRepository.Save();
                 return true;
             }
             catch (Exception)
@@ -77,6 +79,7 @@ namespace TravelRouteService.Services
             try
             {
                 _travelRouteRepository.UpdateTravelRoute(travelRoute);
+                _travelRouteRepository.Save();
                 return true;
             }
             catch (Exception)
@@ -88,7 +91,12 @@ namespace TravelRouteService.Services
         {
             CheapestRouteReturn cheapestRouteReturn = new ();
             var routes = _travelRouteRepository.GetTravelRoutes();
-           
+
+            bool hasOptions = true;
+            while (hasOptions)
+            {
+                var originRoutes = routes.Where(r => r.Origin == origin);
+            }
             foreach (var item in routes)
             {
                 if(item.Origin == origin)
