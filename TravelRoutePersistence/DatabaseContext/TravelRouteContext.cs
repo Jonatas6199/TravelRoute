@@ -17,7 +17,7 @@ namespace TravelRoutePersistence.DatabaseContext
         public DbSet<Route> TravelRoutes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Route>().ToTable("TravelRoute");
+            modelBuilder.Entity<Route>().ToTable("Route");
         }
     }
 }
