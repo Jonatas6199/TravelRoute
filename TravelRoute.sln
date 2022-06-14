@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelRoute", "TravelRoute\TravelRoute.csproj", "{CB832C97-6800-41B3-908B-E4A0C01DC62E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelRoute.API", "TravelRoute\TravelRoute.API.csproj", "{CB832C97-6800-41B3-908B-E4A0C01DC62E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelRoute.Persistence", "TravelRoutePersistence\TravelRoute.Persistence.csproj", "{BD49DB36-CE2A-4A8E-A3F3-03E08ABE46C9}"
 EndProject
