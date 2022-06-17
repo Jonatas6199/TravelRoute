@@ -18,7 +18,7 @@ namespace TravelRoute.Controllers
         {
             _travelRouteService =  travelRouteService;
         }
-        //TODO: VALIDATIONS ARROUND THE WHOLE API, ASSYNCHRONOUS CALL AND ALGORITHM IMPLEMENTATION TO SET CHEAPEST ROUTE
+
         [HttpGet("TravelRoutes")]
         public IActionResult TravelRoutes()
         {
@@ -38,7 +38,18 @@ namespace TravelRoute.Controllers
             try
             {
                 var result = _travelRouteService.GetCheapestRoute(origin, destination);
-                return Ok(result);
+
+                var resultString = string.Empty;
+                for (int i = 0; i < result.Routes.Count; i++)
+                {
+                    var currentRoute = result.Routes[i];
+                    if(i == 0)
+                        resultString += currentRoute.Origin + " - " + currentRoute.Destination;
+                    else
+                        resultString +=  " - " + currentRoute.Destination;
+                }
+                resultString += " ao custo de $" + result.TotalAmount;
+                return Ok(resultString);
             }
             catch (Exception ex)
             {
@@ -51,6 +62,12 @@ namespace TravelRoute.Controllers
         {
             try
             {
+                Route existingRoute = _travelRouteService.GetTravelRouteByRoute(route);
+                
+                if(existingRoute!= null)
+                {
+                    return BadRequest("Essa rota já existe!");
+                }
                 bool result = _travelRouteService.AddTravelRoute(route);
                 if (result)
                     return Ok();

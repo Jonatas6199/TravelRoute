@@ -15,6 +15,7 @@ namespace TravelRouteService.Interfaces
         bool UpdateTravelRoute(Route travelRoute);
         IEnumerable<Route> GetTravelRoutes();
         Route GetTravelRouteById(int travelRouteId);
+        Route GetTravelRouteByRoute(Route route);
         CheapestRouteReturn GetCheapestRoute(string origin, string destination);
     }
 }

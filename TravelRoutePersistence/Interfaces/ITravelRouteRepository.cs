@@ -9,7 +9,7 @@ namespace TravelRoutePersistence.Interfaces
 {
     public interface ITravelRouteRepository
     {
-        IEnumerable<Route> GetTravelRoutes();
+        List<Route> GetTravelRoutes();
         Route GetTravelRoute(int travelRouteId);
         void AddTravelRoute(Route travelRoute);
         void DeleteRoute(int travelRouteId);

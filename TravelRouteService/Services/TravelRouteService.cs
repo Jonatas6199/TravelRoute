@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelRoute.Persistence.ReturnObjects;
+using TravelRoute.Service.Logic;
 using TravelRoutePersistence.Interfaces;
 using TravelRoutePersistence.Model;
 using TravelRoutePersistence.Repository;
@@ -87,25 +88,62 @@ namespace TravelRouteService.Services
                 throw;
             }
         }
+        private List<AirportNode> GetAirportNodes(IEnumerable<Route> routes)
+        {
+            List<AirportNode> nodes = new List<AirportNode>();
+
+            foreach (var item in routes)
+            {
+                var _origin = item.Origin;
+                var destiny = item.Destination;
+
+                if (nodes.Find(e => e.Name == _origin) == null)
+                {
+                    nodes.Add(new AirportNode(_origin));
+                }
+                if (nodes.Find(e => e.Name == destiny) == null)
+                {
+                    nodes.Add(new AirportNode(destiny));
+                }
+            }
+            return nodes;
+        }
+        private void ConnectAirportNodes(List<Route> routes, List<AirportNode> nodes)
+        {
+            foreach (var item in routes)
+            {
+                var origin = nodes.Find(n => n.Name == item.Origin);
+                var destination = nodes.Find(n => n.Name == item.Destination);
+                origin.ConnectTo(destination, item.Value);
+            }
+        }
         public CheapestRouteReturn GetCheapestRoute(string origin, string destination)
         {
             CheapestRouteReturn cheapestRouteReturn = new ();
             var routes = _travelRouteRepository.GetTravelRoutes();
+            List<AirportNode> nodes = GetAirportNodes(routes);
+            ConnectAirportNodes(routes, nodes);
+            AirportNode originNode = nodes.Find(r => r.Name == origin);
+            AirportNode destinationNode = nodes.Find(r => r.Name == destination);
+            var path = DijkstraAlgorithm.FindShortestPath(originNode, destinationNode);
 
-            bool hasOptions = true;
-            while (hasOptions)
+            for (int i = 0; i < path.Length - 1 ; i++)
             {
-                var originRoutes = routes.Where(r => r.Origin == origin);
-            }
-            foreach (var item in routes)
-            {
-                if(item.Origin == origin)
-                {
+                var currentPath = path[i];
+                var pathConnection = path[i + 1];
 
-                }
+               var route =  routes.Find(r => r.Origin == currentPath.Name && r.Destination == pathConnection.Name);
+                cheapestRouteReturn.Routes.Add(route);
+                cheapestRouteReturn.TotalAmount += route.Value;
             }
 
             return cheapestRouteReturn;
+        }
+
+        public Route GetTravelRouteByRoute(Route route)
+        {
+           return _travelRouteRepository.GetTravelRoutes().Find(
+                r => r.Origin == route.Origin && r.Destination == route.Destination);
         }
     }
 }

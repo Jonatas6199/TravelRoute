@@ -33,7 +33,7 @@ namespace TravelRoutePersistence.Repository
             return GetTravelRouteById(travelRouteId);
         }
 
-        public IEnumerable<Route> GetTravelRoutes()
+        public List<Route> GetTravelRoutes()
         {
             return context.TravelRoutes.ToList();
         }
