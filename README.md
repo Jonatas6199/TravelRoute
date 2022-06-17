@@ -1,6 +1,6 @@
 # TravelRoute
 
-Para rodar esta API é necessário ter o SQL Server EXPRESS instalado na máquina
+Para rodar esta API é necessário ter o SQL Server Express instalado na máquina
 
 ## Após instalar o SQL Server Express
 
