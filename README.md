@@ -2,7 +2,7 @@
 
 ## Sobre a solução
 
-Para implementar a solução calculando o menor custo de rota, foi utilizado o Algoritmo de Dijkstra, que calcula o menor caminho possível dentro de todos os possíveis em um grafo, que no caso desse projeto, são aeroportos  
+Para implementar a solução calculando o menor custo de rota, foi utilizado o Algoritmo de Dijkstra, que calcula o menor caminho dentro de todos os possíveis em um grafo, que no caso desse projeto, são aeroportos  
 
 ## Requisitos para a API funcionar
 Para rodar esta API é necessário ter o SQL Server Express instalado na máquina, além do runtime do .NET 5, que vem incluso com o SDK do .NET 5
