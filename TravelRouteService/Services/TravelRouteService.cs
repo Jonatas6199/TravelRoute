@@ -145,5 +145,13 @@ namespace TravelRouteService.Services
            return _travelRouteRepository.GetTravelRoutes().Find(
                 r => r.Origin == route.Origin && r.Destination == route.Destination);
         }
+
+        public bool VerifyIfAirportNodesExistInRoutes(string originAirport, string destinyAirport)
+        {
+            var routes = _travelRouteRepository.GetTravelRoutes();
+            if(routes.Find(r=> r.Origin == originAirport) != null && routes.Find(r => r.Destination == destinyAirport) != null)
+                return true;
+            return false;
+        }
     }
 }

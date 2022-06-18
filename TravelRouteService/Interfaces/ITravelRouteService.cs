@@ -17,5 +17,6 @@ namespace TravelRouteService.Interfaces
         Route GetTravelRouteById(int travelRouteId);
         Route GetTravelRouteByRoute(Route route);
         CheapestRouteReturn GetCheapestRoute(string origin, string destination);
+        bool VerifyIfAirportNodesExistInRoutes(string originAirport, string destinyAirport);
     }
 }

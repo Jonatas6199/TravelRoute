@@ -37,6 +37,12 @@ namespace TravelRoute.Controllers
         {
             try
             {
+               bool existingNodes = _travelRouteService.VerifyIfAirportNodesExistInRoutes(origin, destination);
+                if (!existingNodes)
+                {
+                    return BadRequest("Origem ou Destino não estão cadastrados");
+                }
+
                 var result = _travelRouteService.GetCheapestRoute(origin, destination);
 
                 var resultString = string.Empty;
